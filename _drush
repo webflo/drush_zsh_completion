@@ -14,6 +14,9 @@ local expl
 
 declare -ga common_args
 common_args=(${(f)drush_common_args})
+common_args+=(
+  '(-r --root=)'{-r,--root=}'[Drupal root directory to use (default: current directory)]:directory:_path_files -/'
+)
 
 typeset -A opt_args
 _arguments \
