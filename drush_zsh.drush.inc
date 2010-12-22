@@ -28,6 +28,11 @@ function drush_zsh_drush_command() {
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
     'hidden' => TRUE,
   );
+  
+  $items['zsh-features-list'] = array(
+    'description' => 'Return all features',
+    'hidden' => TRUE,
+  );
 
   return $items;
 }
@@ -128,4 +133,16 @@ function drush_zsh_extract_options($command) {
     }
   }
   return $row;
+}
+
+function drush_drush_zsh_zsh_features_list() {
+  module_load_include('inc', 'features', 'features.export');
+  
+  $rows = array();
+  foreach (features_get_features(NULL, TRUE) as $k => $m) {
+    $rows[] = $m->name;
+  }
+  
+  $rows = implode(',', $rows);
+  drush_print_pipe($rows);
 }
