@@ -40,6 +40,19 @@ case $state in
       $local_args
     )
 
+    case $words[1] in
+      features-update|fu|feature-revert|fr)
+        declare -a drush_features
+        declare -a local_features 
+        drush_features=`drush zsh-features-list --pipe`
+        local_features={$drush_features}
+        
+        args+=(
+          '*:feature:('$local_features')'
+        )
+        ;;
+    esac
+    
     _arguments $args && ret=0
     ;;
 esac
