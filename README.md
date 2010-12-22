@@ -1,33 +1,49 @@
-
 # Drush zsh completion
 
 Dursh autocomplete awesomeness for zsh.
 
 ## Demo
 
-- http://bit.ly/hSq1E7
+- [http://bit.ly/hSq1E7](http://bit.ly/hSq1E7)
 
-## Installation
+## Installation (zsh)
 
-- Add drush_zsh.drush.inc to your drush directory
+- Clone _drush\_zsh\_completion_
+        
+        git clone https://github.com/webflo/drush_zsh_completion.git ~/.drush/drush_zsh
 
-    cd ~/.drush  
-    git clone https://github.com/webflo/drush_zsh_completion.git drush_zsh
+- Clone _zsh\_drush\_plugin_
 
-- Download *oh-my-zsh* https://github.com/robbyrussell/oh-my-zsh
-- Download *drush zsh plugin* https://github.com/webflo/drush_zsh_plugin (~/.oh-my-zsh/plugins/)
+        git clone https://github.com/webflo/zsh_drush_plugin.git ~/.zsh/drush
 
-    cd ~/.oh-my.zsh/plugins  
-    git clone https://github.com/webflo/drush_zsh_plugin.git drush
+- Load _zsh\_drush\_plugin_ in your ~/.zshrc (or ~/.zshrc.local). Copy & pase the following snippet.  
 
-- Load *drush zsh plugin* in your zsh config.
+        fpath=(~/.zsh/drush $fpath)
+        autoload -U compinit
+        compinit -i  
 
-    vi ~/.zshrc
+- Start / restart zsh
+    
+- Have fun!
 
-- Reload zsh
+## Installation (oh-my-zsh)
+
+- Clone _drush\_zsh\_completion_
+
+        git clone https://github.com/webflo/drush_zsh_completion.git ~/.drush/drush_zsh
+
+- Clone _zsh\_drush\_plugin_
+
+        git clone https://github.com/webflo/zsh_drush_plugin.git ~/.oh-my-zsh/plugins/drush
+
+- Load _zsh\_drush\_plugin_ in your ~/.zshrc. Add 'drush' to plugins()
+
+- Start / restart zsh
+    
 - Have fun!
 
 ## Requirements
 
-- Drush 4.0-rc3 http://drupal.org/project/drush
-- oh-my-zsh https://github.com/robbyrussell/oh-my-zsh
+- [Drush 4.0-rc3](http://drupal.org/project/drush)
+- [zsh](http://www.zsh.org/)
+- Optional: [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
