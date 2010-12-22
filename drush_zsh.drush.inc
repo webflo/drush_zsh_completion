@@ -36,20 +36,52 @@ function drush_zsh_drush_command() {
  * Drush zsh-commands callback.
  */
 function drush_drush_zsh_zsh_commands() {
-  $rows = array();
-  $commands = drush_get_commands();
-  // ksort($commands);
-    
-  foreach($commands as $key => $command) {
-    if (!$command['hidden']) {
-      if (!array_key_exists('is_alias', $command) || !$command['is_alias']) {
-        $command_completion[] = $key . ':' . $command['description'];
-        foreach($command['aliases'] as $alias) {
-          $command_completion[] = $alias . ':' . $command['description'];
+  $phases = _drush_bootstrap_phases();
+  // For speed, only bootstrap up to DRUSH_BOOTSTRAP_DRUPAL_SITE+1.
+  $phases = array_slice($phases, 0, DRUSH_BOOTSTRAP_DRUPAL_SITE+1);
+
+  $printed_rows = $rows = array();
+  $phase_index = DRUSH_BOOTSTRAP_DRUSH;
+
+  foreach ($phases as $phase_index) {
+    if (drush_bootstrap_validate($phase_index)) {
+      if ($phase_index > drush_get_context('DRUSH_BOOTSTRAP_PHASE')) {
+        drush_bootstrap($phase_index);
+      }
+
+      $commands = drush_get_commands();
+      // Filter by command file if specified.
+      if ($commandfile = drush_get_option('filter')) {
+        foreach ($commands as $key => $candidate) {
+          if ($candidate['commandfile'] != $commandfile) {
+            unset($commands[$key]);
+          }
         }
       }
+
+      $rows = array();
+      ksort($commands);
+      foreach($commands as $key => $command) {
+        if (!$command['hidden']) {
+          if (!array_key_exists('is_alias', $command) || !$command['is_alias']) {
+            if (!array_key_exists($key, $printed_rows)) {
+              $name = $command['aliases'] ? $key . ' (' . implode(', ', $command['aliases']) . ')': $key;
+              $rows[$key] = array($name, $command['description']);
+              $command_completion[] = $key . ':' . $command['description'];
+              foreach($command['aliases'] as $alias) {
+                $command_completion[] = $alias . ':' . $command['description'];
+              }
+            }
+          }
+        }
+      }
+
+      $printed_rows = array_merge($printed_rows, $rows);
     }
-  }  
+    else {
+      break;
+    }
+  }
   
   // Newline-delimited list for zsh completion. Set the --commands option.
   if (isset($command_completion)) {
