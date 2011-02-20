@@ -44,6 +44,7 @@ Dursh autocomplete awesomeness for zsh.
 
 ## Requirements
 
-- [Drush 4.0-rc3](http://drupal.org/project/drush)
+- [Drush 4.x](http://drupal.org/project/drush)
+- [zsh_drush_plugin](https://github.com/webflo/zsh_drush_plugin)
 - [zsh](http://www.zsh.org/)
 - Optional: [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
