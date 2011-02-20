@@ -1,6 +1,6 @@
 # Drush zsh completion
 
-Dursh autocomplete awesomeness for zsh.
+Drush autocomplete awesomeness for zsh.
 
 ## Demo
 
