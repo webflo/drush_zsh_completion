@@ -6,6 +6,8 @@ Drush autocomplete awesomeness for zsh.
 
 - [http://bit.ly/hSq1E7](http://bit.ly/hSq1E7)
 
+## This README is outdated and needs a major rewrite.
+
 ## Installation (zsh)
 
 - Clone _drush\_zsh\_completion_
