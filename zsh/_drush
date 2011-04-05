@@ -7,20 +7,16 @@ local -a _1st_arguments
 local -a drush_commands
 drush_commands=`drush zsh-commands --pipe`
 
-local -a drush_common_args
-drush_common_args=`drush zsh-options --pipe`
+local -a drush_common_opts
+drush_common_opts=`drush zsh-options --pipe`
+subcommands=(${(f)drush_common_opts});
 
-local expl
-
-declare -ga common_args
-common_args=(${(f)drush_common_args})
-common_args+=(
-  '(-r --root=)'{-r,--root=}'[Drupal root directory to use (default: current directory)]:directory:_path_files -/'
-)
+declare -ga common_opts
+common_opts=(${(f)drush_common_opts})
 
 typeset -A opt_args
 _arguments \
-  $common_args \
+  $common_opts \
   ':subcommand:->subcommand' \
   '*::options:->options' && ret=0
   
@@ -32,15 +28,15 @@ case $state in
   
   options)
     declare -a args
-    declare -a local_args
-    declare -a drush_local_args
+    declare -a local_opts
+    declare -a drush_local_opts
     
-    drush_local_args=`drush zsh-options --pipe $words[1]`
-    local_args=(${(f)drush_local_args})
+    drush_local_opts=`drush zsh-options --pipe $words[1]`
+    local_opts=(${(f)drush_local_opts})
     
     args=(
-      $common_args
-      $local_args
+      $excl_opts
+      $local_opts
     )
 
     case $words[1] in

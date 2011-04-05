@@ -114,11 +114,27 @@ function drush_drush_zsh_zsh_options() {
     }
   } else {
     // No drush command. Get global options
-    
-    // TODO: Fix global options.
-    // $completion = drush_zsh_extract_options(array('options' => drush_get_global_options()));  
+    foreach(drush_get_global_options() as $option => $info) {
+      if (is_array($info)) {
+        switch ($option) {
+          case 'root':
+            $function = ':directory:_path_files -/';
+            $option .= '=';
+            break;
+          default:
+            $function = '';
+        }
+        
+        if ($info['short-form']) {
+          $completion[] = '(-' . $info['short-form'] . ')-' . $info['short-form'] . '['. $info['description'] . ']' . $function;
+        }
+        $completion[] = '(--' . $option . ')--'  . $option . '[' . $info['description'] . ']' . $function;
+      } else {
+        $completion[] = '(--' . $option .')--' . $option . '[' . $info . ']' . $function;
+      }
+    }
   }
-  
+
   drush_print_pipe($completion);
 }
 
@@ -128,7 +144,7 @@ function drush_zsh_extract_options($command) {
     foreach($command['options'] as $option => $description) {
       $aliases = explode(',' , $option);
       foreach($aliases as $alias) {
-        $row[] = trim($alias) . '['. $description .']';
+        $row[] = '(--' . trim($alias) .')--' . trim($alias). '['. $description .']';
       }
     }
   }
