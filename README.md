@@ -6,47 +6,54 @@ Drush autocomplete awesomeness for zsh.
 
 - [http://bit.ly/hSq1E7](http://bit.ly/hSq1E7)
 
-## This README is outdated and needs a major rewrite.
-
 ## Installation (zsh)
 
-- Clone _drush\_zsh\_completion_
-        
-        git clone https://github.com/webflo/drush_zsh_completion.git ~/.drush/drush_zsh
+- Clone _drush\_zsh_
 
-- Clone _zsh\_drush\_plugin_
+        git clone --branch master http://git.drupal.org/sandbox/webflo/1113394.git ~/drush_zsh
 
-        git clone https://github.com/webflo/zsh_drush_plugin.git ~/.zsh/drush
+- Load  _drush\_zsh_ in your drush folder.
 
-- Load _zsh\_drush\_plugin_ in your ~/.zshrc (or ~/.zshrc.local). Copy & pase the following snippet.  
+        ln -s  ~/drush_zsh/drush/drush_zsh.drush.inc ~/.drush/drush_zsh.drush.inc
 
-        fpath=(~/.zsh/drush $fpath)
+- Load _drush\_zsh_ in your ~/.zshrc (or ~/.zshrc.local). Copy & pase the following snippet.
+
+        fpath=(~/drush_zsh/zsh $fpath)
         autoload -U compinit
-        compinit -i  
+        compinit -i
 
 - Start / restart zsh
-    
+
 - Have fun!
 
 ## Installation (oh-my-zsh)
 
-- Clone _drush\_zsh\_completion_
+- Clone _drush\_zsh_
 
-        git clone https://github.com/webflo/drush_zsh_completion.git ~/.drush/drush_zsh
+        git clone --branch master http://git.drupal.org/sandbox/webflo/1113394.git ~/drush_zsh
 
-- Clone _zsh\_drush\_plugin_
+- Load  _drush\_zsh_ in your drush folder.
 
-        git clone https://github.com/webflo/zsh_drush_plugin.git ~/.oh-my-zsh/plugins/drush
+        ln -s  ~/drush_zsh/drush/drush_zsh.drush.inc ~/.drush/drush_zsh.drush.inc
 
-- Load _zsh\_drush\_plugin_ in your ~/.zshrc. Add 'drush' to plugins()
+- Load  _drush\_zsh_ in your oh-my-zsh plugins folder.
+
+        ln -s ~/drush_zsh/zsh ~/.oh-my-zsh/plugins/drush
+
+- Load  _drush\_zsh_ in your ~/.zshrc. Add 'drush' to plugins()
 
 - Start / restart zsh
-    
+
 - Have fun!
+
+## Updates
+
+- Clone _drush\_zsh_ via git
+
+        cd ~/drush_zsh && git pull origin master
 
 ## Requirements
 
 - [Drush 4.x](http://drupal.org/project/drush)
-- [zsh_drush_plugin](https://github.com/webflo/zsh_drush_plugin)
 - [zsh](http://www.zsh.org/)
 - Optional: [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
