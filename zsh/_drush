@@ -19,21 +19,21 @@ _arguments \
   $common_opts \
   ':subcommand:->subcommand' \
   '*::options:->options' && ret=0
-  
+
 case $state in
   subcommand)
     subcommands=(${(f)drush_commands})
     _describe -t subcommands 'drush subcommand' subcommands && ret=0
     ;;
-  
+
   options)
     declare -a args
     declare -a local_opts
     declare -a drush_local_opts
-    
+
     drush_local_opts=`drush zsh-options --pipe $words[1]`
     local_opts=(${(f)drush_local_opts})
-    
+
     args=(
       $excl_opts
       $local_opts
@@ -42,19 +42,44 @@ case $state in
     case $words[1] in
       features-update|fu|feature-revert|fr)
         declare -a drush_features
-        declare -a local_features 
+        declare -a local_features
         drush_features=`drush zsh-features-list --pipe`
         local_features={$drush_features}
-        
+
         args+=(
           '*:feature:('$local_features')'
         )
         ;;
     esac
-    
+
+    case $words[1] in
+      pm-enable|en)
+        declare -a drush_modules
+        declare -a local_features
+        drush_modules=`drush pm-list --status=disabled --pipe`
+        local_modules={$drush_modules}
+
+        args+=(
+          '*:Disabled modules:('$local_modules')'
+        )
+        ;;
+    esac
+
+    case $words[1] in
+      pm-disable|dis)
+        declare -a drush_modules
+        declare -a local_features
+        drush_modules=`drush pm-list --status=enabled --pipe`
+        local_modules={$drush_modules}
+
+        args+=(
+          '*:Enabled modules:('$local_modules')'
+        )
+        ;;
+    esac
+
     _arguments $args && ret=0
     ;;
 esac
 
 return ret
- 
