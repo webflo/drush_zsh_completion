@@ -6,7 +6,9 @@ Drush autocomplete awesomeness for zsh.
 
 - [http://bit.ly/hSq1E7](http://bit.ly/hSq1E7)
 
-## Installation (zsh)
+## Installation
+
+### zsh (no frameworks)
 
 - Clone _drush\_zsh_
 
@@ -26,7 +28,20 @@ Drush autocomplete awesomeness for zsh.
 
 - Have fun!
 
-## Installation (oh-my-zsh)
+### Antigen framework users
+If you're using [Antigen](https://github.com/zsh-lovers/antigen)
+
+- add `antigen bundle webflo/drush_zsh_completion` to your `.zshrc` with your other plugins.
+
+- Load  _drush\_zsh_ in your drush folder
+
+        ln -s  ~/drush_zsh/drush/drush_zsh.drush.inc ~/.drush/drush_zsh.drush.inc
+
+- You can load it into your running zsh without needing a restart by running `antigen bundle webflo/drush_zsh_completion`
+
+- Have fun!
+
+### oh-my-zsh framework users
 
 - Clone _drush\_zsh_
 
