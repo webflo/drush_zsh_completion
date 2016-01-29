@@ -29,7 +29,7 @@ Drush autocomplete awesomeness for zsh.
 - Have fun!
 
 ### Antigen framework users
-If you're using [Antigen](https://github.com/zsh-lovers/antigen)
+If you're using [Antigen](https://github.com/zsh-users/antigen)
 
 - add `antigen bundle webflo/drush_zsh_completion` to your `.zshrc` with your other plugins.
 
